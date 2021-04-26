@@ -1,0 +1,17 @@
+button {
+    letter-spacing: 0.2rem;
+}
+
+.content-wrap {
+    max-width: 600px;
+    margin: auto;
+}
+
+.list li {
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.list li p.actived {
+    text-decoration: line-through;
+}
