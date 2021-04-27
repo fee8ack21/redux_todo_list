@@ -180,10 +180,15 @@ function mod(index, text) {
 }
 // todo component
 function TodoComponent(props) {
-  const { useState, useRef } = React;
+  const { useState, useRef, useEffect } = React;
   const textInput = useRef(null);
-
   const [inputState, setInputState] = useState(false);
+  //
+  useEffect(() => {
+    return () => {
+      setInputState(false);
+    };
+  }, []);
   return (
     <li
       className={`d-flex justify-content-between align-items-center py-2 px-3 mb-2 rounded w-100 ${
@@ -209,10 +214,16 @@ function TodoComponent(props) {
         ref={textInput}
         defaultValue={props.item.text}
         onChange={(e) => {
-          if (e.target.value.trim().length === 0) {
-            e.target.value = "Can not be empty!";
-          }
           mod(props.index, e.target.value.trim());
+        }}
+        onBlur={(e) => {
+          setTimeout(function () {
+            if (e.target.value.trim().length === 0) {
+              e.target.value = "Can not be empty!";
+              mod(props.index, e.target.value.trim());
+            }
+            setInputState(false);
+          }, 100);
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -223,7 +234,7 @@ function TodoComponent(props) {
           className="btn btn-warning"
           onClick={async (e) => {
             e.stopPropagation();
-            await setInputState(!inputState);
+            await setInputState(true);
             textInput.current.focus();
           }}
         >
