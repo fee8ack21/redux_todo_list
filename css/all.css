@@ -1,17 +1,28 @@
-button {
-    letter-spacing: 0.2rem;
+button,
+input {
+  letter-spacing: 0.2rem;
 }
 
 .content-wrap {
-    max-width: 600px;
-    margin: auto;
+  max-width: 700px;
+  margin: auto;
 }
 
 .list li {
-    transition: 0.15s;
-    cursor: pointer;
+  transition: 0.15s;
+  cursor: pointer;
 }
 
 .list li p.actived {
-    text-decoration: line-through;
+  text-decoration: line-through;
+}
+
+.bd-color-actived {
+  border-color: #ced4da !important;
+}
+.bd-color-actived:focus {
+  border-color: #80bdff !important;
+}
+.bd-color-none {
+  border-color: transparent !important;
 }
