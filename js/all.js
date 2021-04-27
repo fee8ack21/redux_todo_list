@@ -195,8 +195,11 @@ function TodoComponent(props) {
         props.item.completed ? "bg-dark" : "bg-light"
       }`}
       key={props.item.time}
-      onClick={() => {
-        toggle(props.index);
+      onClick={(e) => {
+        const nodeName = e.target.nodeName;
+        if (nodeName !== "I" && nodeName !== "BUTTON") {
+          toggle(props.index);
+        }
       }}
     >
       <input
@@ -217,13 +220,11 @@ function TodoComponent(props) {
           mod(props.index, e.target.value.trim());
         }}
         onBlur={(e) => {
-          setTimeout(function () {
-            if (e.target.value.trim().length === 0) {
-              e.target.value = "Can not be empty!";
-              mod(props.index, e.target.value.trim());
-            }
-            setInputState(false);
-          }, 100);
+          if (e.target.value.trim().length === 0) {
+            e.target.value = "Can not be empty!";
+            mod(props.index, e.target.value.trim());
+          }
+          setInputState(false);
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -232,9 +233,11 @@ function TodoComponent(props) {
       <div>
         <button
           className="btn btn-warning"
-          onClick={async (e) => {
-            e.stopPropagation();
-            await setInputState(true);
+          onMouseDown={(e) => {
+            e.stopPropagation;
+            setInputState(!inputState);
+          }}
+          onMouseUp={() => {
             textInput.current.focus();
           }}
         >
